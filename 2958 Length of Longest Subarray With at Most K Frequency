@@ -1,0 +1,27 @@
+func maxSubarrayLength(nums []int, k int) int {
+     if k==0 {
+        return 0
+     }
+    left,right,curlen,maxlen:=0,0,0,0
+    m := make(map[int]int)
+    for right<len(nums) {
+        m[nums[right]]++
+        curlen++
+        if  m[nums[right]]>k {
+                for nums[left]!=nums[right] {
+                    m[nums[left]]--
+                    left++
+                    curlen--
+                }
+                m[nums[left]]--
+                left++
+                curlen--                              
+        }  else {
+        if (curlen>maxlen) {
+            maxlen=curlen
+            }
+        }
+        right++
+    }
+    return maxlen
+}
