@@ -1,0 +1,27 @@
+func maximumLengthSubstring(s string) int {
+    if len(s) == 0 {
+        return 0
+    }
+    
+    runes := []rune(s)
+    left, res := 0, 0
+    m := make(map[rune]int) 
+    
+    for right := 0; right < len(runes); right++ {
+        // 1. Всегда добавляем текущий символ в карту
+        m[runes[right]]++
+        
+        // 2. Если этот символ встретился больше 2 раз, 
+        // сжимаем левую границу, пока его количество не станет ровно 2
+        for m[runes[right]] > 2 {
+            m[runes[left]]--
+            left++
+        }
+        
+        // 3. Теперь окно [left...right] гарантированно валидное.
+        // Вычисляем длину текущего окна и обновляем максимум
+        res = max(res, right - left + 1)
+    }
+    
+    return res
+}
