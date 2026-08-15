@@ -1,0 +1,32 @@
+func longestSubsequence(nums []int) int {
+	n := len(nums)
+	if n == 0 {
+		return 0
+	}
+
+	totalXor := 0
+	firstNonZeroIdx := -1
+
+	// Проходим по массиву: считаем общий XOR 
+	// и запоминаем позиции первого и последнего ненулевых элементов
+	for i, val := range nums {
+		totalXor ^= val
+		if val != 0 {
+			if firstNonZeroIdx == -1 {
+				firstNonZeroIdx = i
+			}
+		}
+	}
+
+	// Случай 1: XOR всего массива уже не ноль. Это идеальный вариант.
+	if totalXor != 0 {
+		return n
+	}
+
+	// Случай 2: Все элементы в массиве нули. Найти не-ноль невозможно.
+	if firstNonZeroIdx == -1 {
+		return 0
+	} else {
+        return len(nums)-1
+    }	
+}
