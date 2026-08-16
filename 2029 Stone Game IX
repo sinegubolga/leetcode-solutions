@@ -1,0 +1,19 @@
+func stoneGameIX(stones []int) bool {
+   devZero ,devTwo, devOne := 0,0,0 
+   for _, val := range stones {
+    if val%3 == 0 {
+        devZero++
+    } else if val%3==1 {
+        devOne++
+    } else {
+        devTwo++
+    }
+   }
+   	if devZero%2 == 0 {
+		return devOne > 0 && devTwo > 0
+	}
+    diff := devOne-devTwo
+    diff = max(diff, -diff)
+    return diff>2
+    
+}
